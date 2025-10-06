@@ -24,3 +24,5 @@ python -m pytest --cov=app --cov-report=term-missing
 Features: add, sub, mul, div, history, help, exit.
 LBYL input validation and EAFP error handling.
 CI example in .github/workflows/python-app.yml.
+
+![CI](https://github.com/pavankumarNagaraju/pycalc-pro/actions/workflows/python-app.yml/badge.svg)
