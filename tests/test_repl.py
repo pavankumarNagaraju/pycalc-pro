@@ -43,3 +43,22 @@ def test_invalid_command_and_input_errors():
     assert "Unknown command" in joined
     assert "Input error: Invalid number" in joined
     assert "Division by zero" in joined
+def test_history_empty_then_exit():
+    outputs, _ = run_scripted(["history", "exit"])
+    joined = "\n".join(outputs)
+    assert "History is empty." in joined
+
+def test_add_with_no_numbers_then_exit():
+    outputs, _ = run_scripted(["add", "", "exit"])
+    joined = "\n".join(outputs)
+    assert "No numbers provided." in joined
+def test_operation_error_not_enough_operands():
+    outputs, _ = run_scripted(["add", "5", "exit"])
+    joined = "\n".join(outputs)
+    assert "Error: Provide at least two numbers." in joined
+def test_quit_alias_immediate_exit():
+    outputs, _ = run_scripted(["quit"])
+    assert any("Goodbye!" in o for o in outputs)
+def test_quit_alias_immediate_exit():
+    outputs, _ = run_scripted(["quit"])
+    assert any("Goodbye!" in o for o in outputs)
