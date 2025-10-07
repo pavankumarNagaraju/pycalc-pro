@@ -47,3 +47,14 @@ def test_div_needs_two():
     import app.operation.operations as ops
     with pytest.raises(OperationError):
         ops.div([3])
+def test_empty_operands_raise_operation_error():
+    import pytest
+    from app.operation.operations import add, OperationError
+    with pytest.raises(OperationError):
+        add([])
+import pytest
+from app.operation.operations import _ensure_numbers, OperationError
+
+def test__ensure_numbers_empty_raises():
+    with pytest.raises(OperationError):
+        _ensure_numbers([])
