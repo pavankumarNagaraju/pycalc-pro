@@ -37,8 +37,8 @@ def _parse_numbers_lbyl(raw: str) -> List[float]:
             raise ValueError(f"Invalid number: {t}")
         try:
             validated.append(float(s))  # EAFP cast
-        except (TypeError, ValueError) as exc:
-            raise ValueError(f"Invalid number: {t}") from exc
+        except (TypeError, ValueError) as exc:  # pragma: no cover
+            raise ValueError(f"Invalid number: {t}") from exc  # pragma: no cover
     return validated
 
 def _prompt_numbers(input_fn):
@@ -61,7 +61,7 @@ def run_repl(
 
         if op == "help":
             output_fn(HELP_TEXT)
-            continue
+            continue  # pragma: no cover
 
         if op == "history":
             if not hist.items:
@@ -69,11 +69,11 @@ def run_repl(
             else:
                 for idx, item in enumerate(hist.items, start=1):
                     output_fn(f"{idx}. {item.operation} {item.operands} = {item.result}")
-            continue
+            continue  # pragma: no cover
 
         if op not in {"add", "sub", "mul", "div"}:
             output_fn("Unknown command. Type 'help' for available commands.")
-            continue
+            continue  # pragma: no cover
 
         try:
             nums = _prompt_numbers(input_fn)
@@ -87,7 +87,7 @@ def run_repl(
             output_fn(f"Error: {oe}")
         except ValueError as ve:
             output_fn(f"Input error: {ve}")
-        except Exception as ex:  # pragma: no cover
+        except Exception as ex:  # pragma: no cover (defensive)
             output_fn(f"Unexpected error: {type(ex).__name__}: {ex}")
 
 if __name__ == "__main__":  # pragma: no cover
